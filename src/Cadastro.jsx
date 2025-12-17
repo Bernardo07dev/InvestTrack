@@ -1,10 +1,39 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassChart, faAt, faLock, faChartColumn, faArrowUp, faUser} from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faApple} from "@fortawesome/free-brands-svg-icons";
+import axios from "axios";
 import {useState} from "react";
+
 
 const Cadastro = () => {
     const [input, setInput] = useState('login');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+
+    const verifyData = async (e) => { // 1. O async vai aqui
+        e.preventDefault();
+        
+        try {
+            // 2. O await pausa o código aqui até o servidor responder
+            const response = await axios.post('https://backend-investtrack.onrender.com/login/', 
+                {
+                    "email": email,
+                    "senha": senha
+                }
+            );
+
+            // Se chegou aqui, deu certo (status 200)
+            console.log(response.data);
+            
+            // Salvando o ID e redirecionando
+            localStorage.setItem('userId', response.data.id);
+            alert("Login com sucesso!");
+
+        } catch (error) {
+            console.error("Erro no login:", error);
+            alert("Email ou senha incorretos.");
+        }
+    }
 
     return(
         <div className="bg-[#F7F9FC] min-h-screen flex flex-col items-center">
@@ -35,20 +64,20 @@ const Cadastro = () => {
 
                     { input === "login" ? (
                         <div className="p-8 py-4 transition-all duration-300 ease-in-out">
-                            <h1 className="text-2xl font-semibold">Bem-vindo de Volta</h1>
-                            <p className="text-sm mt-1 text-gray-600">Coloque seus dados para acessar sua conta</p>
+                            <h1 className="text-3xl font-semibold">Bem-vindo de Volta</h1>
+                            <p className="text-sm text-gray-500">Coloque seus dados para acessar sua conta</p>
 
-                            <form className="mt-4">
+                            <form onSubmit={verifyData} className="mt-4">
                                 <h2 className="font-semibold text-sm text-gray-700 mb-2">Email</h2>
                                 <div className="bg-[#F7F9FC] flex flex-row items-center text-sm gap-2 p-4 rounded-xl border-2 border-[#c6c6c64e]">
                                     <FontAwesomeIcon className="text-gray-400 text-lg font-light" icon={faAt} />
-                                    <input type="email" className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none" placeholder="Insira ser Email"></input>
+                                    <input type="email" className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none w-full" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Insira ser Email" />
                                 </div>
 
                                 <h2 className="font-semibold text-sm text-gray-700 mt-4 mb-2">Senha</h2>
                                 <div className="bg-[#F7F9FC] flex flex-row items-center text-sm gap-2 p-4 rounded-xl border-2 border-[#c6c6c64e]">
                                     <FontAwesomeIcon className="text-gray-400 text-lg font-light" icon={faLock} />
-                                    <input type="password" className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none" placeholder="Insira sua Senha"></input>
+                                    <input type="password" className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none w-full" placeholder="Insira sua Senha" onChange={(e) => setSenha(e.target.value)} value={senha}/>
                                 </div>
 
                                 <button className="p-4 bg-[#0A4D3C] text-center text-sm w-full mt-6 rounded-2xl text-white font-semibold">Entrar</button>
