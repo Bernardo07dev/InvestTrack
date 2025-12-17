@@ -3,18 +3,23 @@ import { faMagnifyingGlassChart, faAt, faLock, faChartColumn, faArrowUp, faUser}
 import { faGoogle, faApple} from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 import {useState} from "react";
+import { useNavigate } from "react-router-dom"
 
 
 const Cadastro = () => {
+    const navigate = useNavigate();
     const [input, setInput] = useState('login');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const verifyData = async (e) => { // 1. O async vai aqui
+    const [nomeCad, setnomeCad] = useState('');
+    const [emailCad, setEmailCad] = useState('');
+    const [senhaCad, setSenhaCad] = useState('');
+
+    const verifyData = async (e) => {
         e.preventDefault();
         
         try {
-            // 2. O await pausa o código aqui até o servidor responder
             const response = await axios.post('https://backend-investtrack.onrender.com/login/', 
                 {
                     "email": email,
@@ -22,16 +27,34 @@ const Cadastro = () => {
                 }
             );
 
-            // Se chegou aqui, deu certo (status 200)
-            console.log(response.data);
-            
-            // Salvando o ID e redirecionando
+            console.log(response.data);   
             localStorage.setItem('userId', response.data.id);
-            alert("Login com sucesso!");
+            localStorage.setItem('userEmail', response.data.email);
+            localStorage.setItem('userNome', response.data.nome);
+            navigate('/home');
 
         } catch (error) {
             console.error("Erro no login:", error);
-            alert("Email ou senha incorretos.");
+        }
+    }
+
+    const CreateUser = async (e) => {
+        e.preventDefault();
+        try{
+            const response = await axios.post('https://backend-investtrack.onrender.com/create/', 
+                {
+                    "nome": nomeCad,
+                    "email": emailCad,
+                    "senha": senhaCad
+                }
+            )
+            console.log(response.data);
+            localStorage.setItem('userId', response.data.id);
+            localStorage.setItem('userEmail', response.data.email);
+            localStorage.setItem('userNome', response.data.nome);
+            navigate('/home');
+        } catch (error) {
+            console.error("Erro no cadastro:", error);        
         }
     }
 
@@ -80,7 +103,7 @@ const Cadastro = () => {
                                     <input type="password" className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none w-full" placeholder="Insira sua Senha" onChange={(e) => setSenha(e.target.value)} value={senha}/>
                                 </div>
 
-                                <button className="p-4 bg-[#0A4D3C] text-center text-sm w-full mt-6 rounded-2xl text-white font-semibold">Entrar</button>
+                                <button className="p-4 cursor-pointer bg-[#0A4D3C] text-center text-sm w-full mt-6 rounded-2xl text-white font-semibold">Entrar</button>
                             </form>
 
                             <div className="my-8 relative items-center flex justify-center text-xs uppercase bg-gray-200 h-[1.8px]">
@@ -101,26 +124,26 @@ const Cadastro = () => {
                             <h1 className="text-2xl font-semibold">Faça seu cadastro</h1>
                             <p className="text-sm mt-1 text-gray-600">Coloque seus dados para criar sua conta</p>
 
-                            <form className="mt-4">
+                            <form className="mt-4" onSubmit={CreateUser}>
                                 <h2 className="font-semibold text-sm text-gray-700 mb-2">Nome</h2>
                                 <div className="bg-[#F7F9FC] flex flex-row items-center text-sm gap-2 p-4 mb-4 rounded-xl border-2 border-[#c6c6c64e]">
                                     <FontAwesomeIcon className="text-gray-400 text-lg font-light" icon={faUser} />
-                                    <input className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none" placeholder="Insira seu nome"></input>
+                                    <input className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none w-full" onChange={(e) => setnomeCad(e.target.value)} value={nomeCad} placeholder="Insira seu nome"></input>
                                 </div>
                                 
                                 <h2 className="font-semibold text-sm text-gray-700 mb-2">Email</h2>
                                 <div className="bg-[#F7F9FC] flex flex-row items-center text-sm gap-2 p-4 rounded-xl border-2 border-[#c6c6c64e]">
                                     <FontAwesomeIcon className="text-gray-400 text-lg font-light" icon={faAt} />
-                                    <input className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none" placeholder="Insira ser Email"></input>
+                                    <input className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none w-full" onChange={(e) => setEmailCad(e.target.value)} value={emailCad} placeholder="Insira ser Email"></input>
                                 </div>
 
                                 <h2 className="font-semibold text-sm text-gray-700 mt-4 mb-2">Crie sua Senha</h2>
                                 <div className="bg-[#F7F9FC] flex flex-row items-center text-sm gap-2 p-4 rounded-xl border-2 border-[#c6c6c64e]">
                                     <FontAwesomeIcon className="text-gray-400 text-lg font-light" icon={faLock} />
-                                    <input type="password" className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none" placeholder="Insira sua Senha"></input>
+                                    <input type="password" className="outline-none w-full font-medium ring-0 focus:ring-0 focus:outline-none" onChange={(e) => setSenhaCad(e.target.value)} value={senhaCad}  placeholder="Insira sua Senha"></input>
                                 </div>
 
-                                <button className="p-4 bg-[#0A4D3C] text-center text-sm w-full mt-6 rounded-2xl text-white font-semibold">Entrar</button>
+                                <button className="p-4 cursor-pointer bg-[#0A4D3C] text-center text-sm w-full mt-6 rounded-2xl text-white font-semibold">Entrar</button>
                             </form>
                         </div>
                         )
