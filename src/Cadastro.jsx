@@ -11,6 +11,7 @@ const Cadastro = () => {
     const [input, setInput] = useState('login');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [errormsg, setErrormsg] = useState(false);
 
     const [nomeCad, setnomeCad] = useState('');
     const [emailCad, setEmailCad] = useState('');
@@ -35,6 +36,7 @@ const Cadastro = () => {
 
         } catch (error) {
             console.error("Erro no login:", error);
+            setErrormsg(true);
         }
     }
 
@@ -102,6 +104,10 @@ const Cadastro = () => {
                                     <FontAwesomeIcon className="text-gray-400 text-lg font-light" icon={faLock} />
                                     <input type="password" className="outline-none font-medium ring-0 focus:ring-0 focus:outline-none w-full" placeholder="Insira sua Senha" onChange={(e) => setSenha(e.target.value)} value={senha}/>
                                 </div>
+
+                                {errormsg && (
+                                    <p className="pt-4 text-sm font-medium text-red-900 ease-in-out">Email ou senha incorretos</p>
+                                )}
 
                                 <button className="p-4 cursor-pointer bg-[#0A4D3C] text-center text-sm w-full mt-6 rounded-2xl text-white font-semibold">Entrar</button>
                             </form>

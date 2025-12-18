@@ -1,14 +1,15 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassChart, faArrowRightFromBracket, faPlus, faWallet, faArrowUp, faArrowTrendUp, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import Adicionar from "./Adicionar";
 
 const Dashboard = () => {
-
     const idUsuario = localStorage.getItem('userId');
     const emailUsuario = localStorage.getItem('userEmail');
     const nomeUsuario = localStorage.getItem('userNome');
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
 
     console.log(idUsuario);
 
@@ -29,6 +30,7 @@ const Dashboard = () => {
 
     return(
         <div className="min-h-screen bg-[#F7F9FC]">
+            <Adicionar open={open} setOpen={setOpen} />
             <header className="w-full flex flex-row justify-between py-4 px-16 fixed bg-white shadow-md shadow-[#e6e6e6a6]">
                 {/* LOGO */}
                 <div className="flex flex-row gap-2 items-center">
@@ -59,7 +61,7 @@ const Dashboard = () => {
                         <p className="text-xs text-gray-500">Visão geral da sua carteira de investimentos</p>
                     </div>
 
-                    <div className="border border-[#0a4d3c71] bg-[#64d8a424] cursor-pointer text-[#0A4D3C] h-11 text-xs flex flex-row justify-center items-center px-6 gap-1 rounded-xl backdrop-blur-2xl">
+                    <div onClick={() => setOpen(true)} className="border border-[#0a4d3c71] bg-[#64d8a424] cursor-pointer text-[#0A4D3C] h-11 text-xs flex flex-row justify-center items-center px-6 gap-1 rounded-xl backdrop-blur-2xl">
                         <FontAwesomeIcon icon={faPlus} />
                         <p className="text-xs font-medium">Adicionar Investimento</p>
                     </div>
