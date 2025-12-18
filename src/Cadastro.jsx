@@ -73,7 +73,7 @@ const Cadastro = () => {
                 </div>
             </header>
 
-            <main className="w-[80%] bg-white mb-12 shadow-2xl shadow-[#e6e6e6] border-2 border-gray-100 rounded-2xl flex flex-row">
+            <main className="w-[80%] bg-white mb-12 shadow-2xl shadow-[#e6e6e6] border-2 border-gray-100 rounded-4xl flex flex-row">
                 <div className="w-[55%] flex flex-col py-6 px-8">
                     <div className={`flex flex-row gap-4 bg-[#F3F4F6] p-2 text-sm font-medium justify-between rounded-xl mb-6`}>
                         <div onClick={() => setInput("login")}  className={`${input === "login" ? "bg-white" : "bg-[#F3F4F6]"} transition-all duration-300 ease-in-out cursor-pointer rounded-xl p-2 text-center w-[50%]`}>
@@ -151,8 +151,8 @@ const Cadastro = () => {
 
                 </div>
 
-                <div className="w-[45%] bg-linear-to-br shadow-xl p-12 from-[#0A4D3C] to-[#052e24] rounded-xl text-white flex flex-col justify-between">
-                    <div className="w-fit rounded-xl border border-white/20 p-4 backdrop-blur-2xl bg-white/10 flex flex-row gap-2 items-center shadow-xl shadow-white/3">
+                <div className="w-[45%] bg-linear-to-br shadow-xl p-12 from-[#0A4D3C] to-[#052e24] rounded-4xl text-white flex flex-col justify-between">
+                    <div className="w-fit rounded-xl border border-white/20 p-4 backdrop-blur-2xl bg-white/3 flex flex-row gap-2 inset-shadow-lg items-center shadow-2xl shadow-black/35">
                         <FontAwesomeIcon className="bg-green-400 p-3 rounded-lg" icon={faChartColumn}></FontAwesomeIcon>
                         <div>
                             <p className="font-extralight text-white/50 text-xs uppercase mb-[0.5px]">Market Update</p>
@@ -163,26 +163,26 @@ const Cadastro = () => {
                         </div>
                     </div>
 
-                    <h1 className="mt-8 text-4xl mb-3 font-semibold tracking-tighter">Seu dinheiro sob controle<br/> <u>sem complicação</u> </h1>
-                    <p className=" text-white/60 font-light mr-12 mb-10">Faça parte da nossa comunidade e seja mais um a ter controle sobre gastos, investimentos e renda.</p>
-                    <div className="rounded-xl border border-white/20 py-8 px-10 backdrop-blur-2xl bg-white/10 flex flex-col shadow-xl shadow-white/7">
+                    <h1 className="mt-8 text-4xl text-white/90 mb-3 font-semibold tracking-tighter text-shadow-lg">Seu dinheiro sob controle<br/> sem complicação </h1>
+                    <p className=" text-white/50 font-light mr-12 mb-10 text-shadow-lg">Faça parte da nossa comunidade e seja mais um a ter controle sobre gastos, investimentos e renda.</p>
+                    <div className="rounded-xl border border-white/20 py-8 px-10 backdrop-blur-4xl bg-white/3 flex flex-col inset-shadow-sm shadow-2xl shadow-black/45">
                         <p className="text-white/60 text-sm font-light mb-1">Balanço Total</p>
                         <div className="flex flex-row justify-baseline items-center gap-2">
-                            <h1 className="text-3xl font-semibold">R$12.550,45</h1>
-                            <div className="flex flex-row items-center text-sm bg-[#1F6245] text-[#7dffa4] p-2 rounded-full">
-                                <FontAwesomeIcon className="text-xs" icon={faArrowUp} />
-                                <p >12%</p>
+                            <h1 className="text-3xl font-semibold text-white/70 text-shadow-[90px]">R$12.550,45</h1>
+                            <div className="flex flex-row items-center text-sm shadow-lg bg-[#1f624526] text-[#7dffa4] font-ligth border border-[#e2e2e20d] backdrop-blur-2xl px-3 p-1 rounded-full gap-1">
+                                <FontAwesomeIcon className="text-[11px]" icon={faArrowUp} />
+                                <p>12%</p>
                             </div>
                         </div>
 
                         <div className="flex flex-row justify-between items-baseline">
-                            <div className="w-10 h-8 bg-white/30 rounded-t-lg"></div>
-                            <div className="w-10 h-12 bg-white/30 rounded-t-lg"></div>
-                            <div className="w-10 h-18 bg-white/30 rounded-t-lg"></div>
-                            <div className="w-10 h-16 bg-white/30 rounded-t-lg"></div>
-                            <div className="w-10 h-14 bg-white/30 rounded-t-lg"></div>
-                            <div className="w-10 h-12 bg-white/30 rounded-t-lg"></div>
-                            <div className="w-10 h-24 bg-green-500/80 rounded-t-lg"></div>
+                            <div className="w-10 h-8 bg-white/20 backdrop-blur-2xl rounded-t-lg border-white/20"></div>
+                            <div className="w-10 h-12 bg-white/20 backdrop-blur-2xl rounded-t-lg border-white/20"></div>
+                            <div className="w-10 h-18 bg-white/20 backdrop-blur-2xl rounded-t-lg border-white/20"></div>
+                            <div className="w-10 h-16 bg-white/20 backdrop-blur-2xl rounded-t-lg border-white/20"></div>
+                            <div className="w-10 h-14 bg-white/20 backdrop-blur-2xl rounded-t-lg border-white/20"></div>
+                            <div className="w-10 h-12 bg-white/20 backdrop-blur-2xl rounded-t-lg border-white/20"></div>
+                            <div className="w-10 h-24 bg-green-500/80 rounded-t-lg border-white/20"></div>
                         </div>
                     </div>
                 </div>
