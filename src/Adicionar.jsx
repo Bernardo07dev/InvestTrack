@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons"
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Adicionar = ({ open, setOpen }) => {
     const [query, setQuery] = useState('');
@@ -10,6 +11,8 @@ const Adicionar = ({ open, setOpen }) => {
     const [choice, setChoice] = useState([]);
     const [quant, setQuant] = useState(0)
     const agora = new Date().toISOString().split('T')[0];
+
+    const navigate = useNavigate();
 
     const seleciona = (item) => {
         setSelecionado(true);
@@ -28,11 +31,13 @@ const Adicionar = ({ open, setOpen }) => {
                 "ticker": choice.stock,
                 "quantidade": quant,
                 "data": agora,
-                "price": choice.close
+                "price": choice.close,
+                "total": Number((choice.close * quant).toFixed(2))
             }) 
             console.log(build.data);
-        } catch{
-            alert("ERRO")
+            navigate('/home');
+        } catch(error){
+            console.log(error);
         }
 
     }
