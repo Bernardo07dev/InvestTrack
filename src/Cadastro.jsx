@@ -4,7 +4,7 @@ import { faGoogle, faApple} from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 import {useState} from "react";
 import { useNavigate } from "react-router-dom"
-
+import Loading from "./Loading";
 
 const Cadastro = () => {
     const navigate = useNavigate();
@@ -12,6 +12,8 @@ const Cadastro = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [errormsg, setErrormsg] = useState(false);
+    const [load, setLoad] = useState(false);
+
 
     const [nomeCad, setnomeCad] = useState('');
     const [emailCad, setEmailCad] = useState('');
@@ -19,6 +21,8 @@ const Cadastro = () => {
 
     const verifyData = async (e) => {
         e.preventDefault();
+        setLoad(true);
+        setErrormsg(false);
         
         try {
             const response = await axios.post('https://backend-investtrack.onrender.com/login/', 
@@ -37,6 +41,8 @@ const Cadastro = () => {
         } catch (error) {
             console.error("Erro no login:", error);
             setErrormsg(true);
+        } finally{
+            setLoad(false);
         }
     }
 
@@ -62,6 +68,7 @@ const Cadastro = () => {
 
     return(
         <div className="bg-[#F7F9FC] min-h-screen flex flex-col items-center">
+            {load && <Loading/>}
             <header className="w-full flex flex-row justify-between py-8 px-16">
                 {/* LOGO */}
                 <div className="flex flex-row gap-2 items-center">

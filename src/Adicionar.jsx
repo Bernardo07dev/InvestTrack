@@ -9,12 +9,32 @@ const Adicionar = ({ open, setOpen }) => {
     const [selecionado, setSelecionado] = useState(false);
     const [choice, setChoice] = useState([]);
     const [quant, setQuant] = useState(0)
+    const agora = new Date().toISOString().split('T')[0];
 
     const seleciona = (item) => {
         setSelecionado(true);
         setQuery(item.name);
         setChoice(item)
         console.log(item);
+    }
+
+    const createInvestmento = async (e) => {
+        e.preventDefault();
+        alert("Investimento criado com sucesso!")
+        try{
+            const build = await axios.post('https://backend-investtrack.onrender.com/investimentos/', {
+                "user": Number(localStorage.getItem('userId')),
+                "stock": choice.name,
+                "ticker": choice.stock,
+                "quantidade": quant,
+                "data": agora,
+                "price": choice.close
+            }) 
+            console.log(build.data);
+        } catch{
+            alert("ERRO")
+        }
+
     }
 
     const API_TOKEN = import.meta.env.VITE_BRAPI_TOKEN; 
@@ -53,7 +73,7 @@ const Adicionar = ({ open, setOpen }) => {
                 </div>
 
                 <h1 className="text-xl font-semibold text-[#2C3E50] mb-4">Adicionar Investimento</h1>
-                <form onSubmit={(e) => (e.preventDefault())}>
+                <form onSubmit={(e) => createInvestmento(e)}>
                     <p className="text-sm text-gray-600 mb-2">Escolher ação</p>
                     <input type="text" disabled={selecionado} onChange={(e) => setQuery(e.target.value)} value={query} className="outline-none bg-[#F7F9FC] p-4 rounded-xl border border-gray-300 flex flex-row items-center text-sm text-gray-700 ont-medium ring-0 focus:ring-0 focus:outline-none w-full" placeholder="Insira o nome do ativo"></input>
                     <div className={`bg-[#F7F9FC] text-xs text-gray-600 flex-col transition-all ease-in-out cursor-pointer max-h-50 overflow-y-scroll scrollbar-hide rounded-b-2xl ${query.length === 0 || selecionado ? "none" : "flex" }`}>
