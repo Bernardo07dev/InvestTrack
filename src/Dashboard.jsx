@@ -60,7 +60,7 @@ const Dashboard = () => {
     return(
         <div className="min-h-screen bg-[#F7F9FC]">
             <Adicionar open={open} setOpen={setOpen} />
-            <header className="w-full flex flex-row justify-between py-4 px-16 fixed bg-white shadow-md shadow-[#e6e6e6a6]">
+            <header className="w-full flex flex-row justify-between py-4 px-16 z-10 fixed bg-white shadow-md shadow-[#e6e6e6a6]">
                 {/* LOGO */}
                 <div className="flex flex-row gap-2 items-center">
                     <FontAwesomeIcon className="bg-[#0A4D3C] text-white text-xl p-2 rounded-xl" icon={faMagnifyingGlassChart} />
