@@ -13,9 +13,6 @@ const Dashboard = () => {
     const [open, setOpen] = useState(false);
 
     const [investimentos, setInvestimentos] = useState([]);
-    const createIcon = (string) => {
-        return string.slice(0, 2).toUpperCase();
-    }
 
     const formatarData = (dataIso) => {
         if (!dataIso) return "";
@@ -159,7 +156,7 @@ const Dashboard = () => {
                             (item, index) => (
                                 <div key={index} className="flex flex-row capitalize text-xs gap-4 mb-8">
                                     <div className="flex justify-start items-center w-[35%] text-gray-600 gap-2">
-                                        <h1 className="p-2 bg-[#F3F4F6] rounded-lg font-medium">{createIcon(item.stock)}</h1>
+                                        <img className="w-8 rounded-lg" src={item.img}></img>
                                         <h1>{item.stock}</h1>
                                     </div>
                                     <div className="flex w-[21%] justify-start items-center">
