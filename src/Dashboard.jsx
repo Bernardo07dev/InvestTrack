@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassChart, faArrowRightFromBracket, faPlus, faWallet, faArrowUp, faArrowTrendUp, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import Adicionar from "./Adicionar";
+import axios from "axios";
 
 const Dashboard = () => {
     const idUsuario = localStorage.getItem('userId');
@@ -11,11 +12,42 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
 
+    const [investimentos, setInvestimentos] = useState([]);
+    const createIcon = (string) => {
+        return string.slice(0, 2).toUpperCase();
+    }
+
+    const formatarData = (dataIso) => {
+        if (!dataIso) return "";
+        const dataObj = new Date(dataIso + "T00:00:00");
+        const dia = dataObj.getDate().toString().padStart(2, '0');
+        const ano = dataObj.getFullYear();
+        let mesAbreviado = dataObj.toLocaleDateString('pt-BR', { month: 'short' });
+        mesAbreviado = mesAbreviado.replace('.', '');
+        return `${dia}, ${mesAbreviado}. ${ano}`;
+    };
+
+    const fetchInvestimentos = async () => {
+        try{
+            const response = await axios.post('https://backend-investtrack.onrender.com/get-investimentos/', {
+                "user": Number(idUsuario)
+            } 
+            )
+            console.log(response.data);
+            setInvestimentos(response.data);
+        } catch(error){
+            console.log(error);
+        }
+    }
+
     console.log(idUsuario);
 
     useEffect(() => {
         if(!idUsuario){
             navigate('/');
+            return
+        }else{
+            fetchInvestimentos();
         }
     }, []);
 
@@ -115,7 +147,11 @@ const Dashboard = () => {
                 </div>
 
                 <div className="w-[75%] bg-white p-6 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
-                        <h1 className="text-xl font-semibold text-[#2C3E50]">Investimentos</h1>
+                    <h1 className="text-xl font-semibold text-[#2C3E50]">Investimentos</h1>
+                    <div className="flex flex-row">
+                        <div><h1></h1></div>
+                    </div>
+                       
                 </div>
             </section>
 

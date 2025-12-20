@@ -35,7 +35,7 @@ const Adicionar = ({ open, setOpen }) => {
                 "total": Number((choice.close * quant).toFixed(2))
             }) 
             console.log(build.data);
-            navigate('/home');
+            window.location.reload();
         } catch(error){
             console.log(error);
         }
