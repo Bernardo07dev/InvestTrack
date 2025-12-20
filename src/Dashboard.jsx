@@ -146,10 +146,30 @@ const Dashboard = () => {
                     <h1 className="text-xl font-semibold text-[#2C3E50]">Alocação</h1>
                 </div>
 
-                <div className="w-[75%] bg-white p-6 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
-                    <h1 className="text-xl font-semibold text-[#2C3E50]">Investimentos</h1>
-                    <div className="flex flex-row">
-                        <div><h1></h1></div>
+                <div className="w-[75%] bg-white p-8 pb-2 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
+                    <h1 className="text-lg font-semibold text-[#2C3E50] mb-4">Investimentos</h1>
+                    <div className="flex flex-col ">
+                        <div className="flex flex-row text-sm capitalize mb-4 gap-4">
+                            <div className="flex w-[35%] "><h1>Ativo</h1></div>
+                            <div className="flex w-[21%]"><h1>Preço <span className="text-[10px] text-gray-500">/ Cotas</span></h1></div>
+                            <div className="flex w-[21%]"><h1>Valor</h1></div>           
+                            <div className="flex w-[21%]"><h1>Data</h1></div>
+                        </div>
+                        {investimentos.map(
+                            (item, index) => (
+                                <div key={index} className="flex flex-row capitalize text-xs gap-4 mb-8">
+                                    <div className="flex justify-start items-center w-[35%] text-gray-600 gap-2">
+                                        <h1 className="p-2 bg-[#F3F4F6] rounded-lg font-medium">{createIcon(item.stock)}</h1>
+                                        <h1>{item.stock}</h1>
+                                    </div>
+                                    <div className="flex w-[21%] justify-start items-center">
+                                        <h1 className="">R${item.price} <span className="text-[10px] text-gray-600 font-light">/  {item.quantidade}</span></h1>
+                                    </div>
+                                    <div className="flex ml-0 w-[21%] justify-start items-center"><h1 className="p-2 bg-[#f3f6f5] rounded-lg" >R$ {item.total}</h1></div>           
+                                    <div className="flex w-[21%] justify-start items-center italic"><h1>{formatarData(item.data)}</h1></div>
+                                </div>
+                        )
+                        )}
                     </div>
                        
                 </div>

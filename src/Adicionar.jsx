@@ -32,7 +32,8 @@ const Adicionar = ({ open, setOpen }) => {
                 "quantidade": quant,
                 "data": agora,
                 "price": choice.close,
-                "total": Number((choice.close * quant).toFixed(2))
+                "total": Number((choice.close * quant).toFixed(2)),
+                "img": choice.logo
             }) 
             console.log(build.data);
             window.location.reload();
