@@ -143,7 +143,7 @@ const Dashboard = () => {
 
             <section className="mx-18 mt-10 flex flex-row justify-between gap-4">
                 <div className="w-[35%] bg-white p-6 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
-                        <h1 className="text-xl font-semibold text-[#2C3E50]">Alocação</h1>
+                    <h1 className="text-xl font-semibold text-[#2C3E50]">Alocação</h1>
                 </div>
 
                 <div className="w-[75%] bg-white p-6 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
