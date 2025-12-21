@@ -23,7 +23,6 @@ const Adicionar = ({ open, setOpen }) => {
 
     const createInvestmento = async (e) => {
         e.preventDefault();
-        alert("Investimento criado com sucesso!")
         try{
             const build = await axios.post('https://backend-investtrack.onrender.com/investimentos/', {
                 "user": Number(localStorage.getItem('userId')),
@@ -34,14 +33,31 @@ const Adicionar = ({ open, setOpen }) => {
                 "price": choice.close,
                 "total": Number((choice.close * quant).toFixed(2)),
                 "img": choice.logo
-            }) 
+            })
+
             console.log(build.data);
-            window.location.reload();
+            atualizaSaldo();
+            // window.location.reload();
         } catch(error){
             console.log(error);
         }
 
     }
+
+    const atualizaSaldo = async () => {
+        try{
+            const update = await axios.post('https://backend-investtrack.onrender.com/transaction/', {
+                "user": Number(localStorage.getItem('userId')),
+                "valor": (choice.close * quant).toFixed(2),
+                "tipo":"subtrair"
+            })
+            console.log(update.data);
+        } catch(error){
+            console.log(error.response?.data);
+            console.log(error.response?.status);
+        }
+    }
+            
 
     const API_TOKEN = import.meta.env.VITE_BRAPI_TOKEN; 
 

@@ -11,7 +11,7 @@ const Dashboard = () => {
     const nomeUsuario = localStorage.getItem('userNome');
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-
+    const [carteira, setCarteira] = useState([])
     const [investimentos, setInvestimentos] = useState([]);
 
     const formatarData = (dataIso) => {
@@ -30,8 +30,20 @@ const Dashboard = () => {
                 "user": Number(idUsuario)
             } 
             )
-            console.log(response.data);
             setInvestimentos(response.data);
+        } catch(error){
+            console.log(error);
+        }
+    }
+
+    const getInvestimentos = async () => {
+        try{
+            const response = await axios.post('https://backend-investtrack.onrender.com/carteira/', {
+                "user": Number(idUsuario)
+            } 
+            )
+            console.log(response.data);
+            setCarteira(response.data);
         } catch(error){
             console.log(error);
         }
@@ -45,6 +57,7 @@ const Dashboard = () => {
             return
         }else{
             fetchInvestimentos();
+            getInvestimentos();
         }
     }, []);
 
@@ -101,7 +114,7 @@ const Dashboard = () => {
                         <div className="flex flex-row justify-between w-full items-center">
                             <div className="">
                                 <p className="text-xs text-gray-500">Total Investido</p>
-                                <p className="text-2xl font-semibold text-[#2C3E50]">R$ 124.324,22</p>
+                                <p className="text-2xl font-semibold text-[#2C3E50]">R$ {carteira.investido}</p>
                             </div>
                             <FontAwesomeIcon className="text-2xl p-3 text-[#0a4d3cc0] bg-[#E6EDEB] rounded-2xl border border-gray-200" icon={faWallet} />
                         </div>
@@ -129,7 +142,7 @@ const Dashboard = () => {
                         <div className="flex flex-row justify-between w-full items-center">
                             <div className="">
                                 <p className="text-xs text-gray-500">Saldo Atual</p>
-                                <p className="text-2xl font-semibold text-[#2C3E50]">R$ 2.052,24</p>
+                                <p className="text-2xl font-semibold text-[#2C3E50]">R$ {carteira.saldo}</p>
                             </div>
                             <FontAwesomeIcon className="text-2xl p-3 text-[#2563EB] bg-[#EFF6FF] rounded-2xl border border-gray-200" icon={faDollarSign} />
                         </div>
