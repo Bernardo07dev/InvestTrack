@@ -21,6 +21,11 @@ const Adicionar = ({ open, setOpen }) => {
         console.log(item);
     }
 
+    const sendInvest = (e) => {
+        createInvestmento(e)
+        atualizaSaldo();
+    }
+
     const createInvestmento = async (e) => {
         e.preventDefault();
         try{
@@ -36,7 +41,7 @@ const Adicionar = ({ open, setOpen }) => {
             })
 
             console.log(build.data);
-            atualizaSaldo();
+            
             // window.location.reload();
         } catch(error){
             console.log(error);
@@ -48,13 +53,14 @@ const Adicionar = ({ open, setOpen }) => {
         try{
             const update = await axios.post('https://backend-investtrack.onrender.com/transaction/', {
                 "user": Number(localStorage.getItem('userId')),
-                "valor": (choice.close * quant).toFixed(2),
+                "valor": Number((choice.close * quant).toFixed(2)),
                 "tipo":"subtrair"
             })
             console.log(update.data);
         } catch(error){
             console.log(error.response?.data);
             console.log(error.response?.status);
+            console.log(Number((choice.close * quant)))
         }
     }
             
@@ -95,7 +101,7 @@ const Adicionar = ({ open, setOpen }) => {
                 </div>
 
                 <h1 className="text-xl font-semibold text-[#2C3E50] mb-4">Adicionar Investimento</h1>
-                <form onSubmit={(e) => createInvestmento(e)}>
+                <form onSubmit={(e) => sendInvest(e)}>
                     <p className="text-sm text-gray-600 mb-2">Escolher ação</p>
                     <input type="text" disabled={selecionado} onChange={(e) => setQuery(e.target.value)} value={query} className="outline-none bg-[#F7F9FC] p-4 rounded-xl border border-gray-300 flex flex-row items-center text-sm text-gray-700 ont-medium ring-0 focus:ring-0 focus:outline-none w-full" placeholder="Insira o nome do ativo"></input>
                     <div className={`bg-[#F7F9FC] text-xs text-gray-600 flex-col transition-all ease-in-out cursor-pointer max-h-50 overflow-y-scroll scrollbar-hide rounded-b-2xl ${query.length === 0 || selecionado ? "none" : "flex" }`}>
