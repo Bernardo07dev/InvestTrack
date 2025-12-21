@@ -42,7 +42,7 @@ const Adicionar = ({ open, setOpen }) => {
 
             console.log(build.data);
             
-            // window.location.reload();
+            window.location.reload();
         } catch(error){
             console.log(error);
         }
@@ -51,16 +51,18 @@ const Adicionar = ({ open, setOpen }) => {
 
     const atualizaSaldo = async () => {
         try{
+            // if (choice.close * quant > )
+
             const update = await axios.post('https://backend-investtrack.onrender.com/transaction/', {
                 "user": Number(localStorage.getItem('userId')),
-                "valor": Number((choice.close * quant).toFixed(2)),
+                "valor": (choice.close * quant),
                 "tipo":"subtrair"
             })
             console.log(update.data);
         } catch(error){
             console.log(error.response?.data);
             console.log(error.response?.status);
-            console.log(Number((choice.close * quant)))
+            console.log(choice.close * quant)
         }
     }
             
