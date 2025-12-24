@@ -12,7 +12,7 @@ const Adicionar = ({ open, setOpen }) => {
     const [quant, setQuant] = useState(0)
     const agora = new Date().toISOString().split('T')[0];
 
-    const navigate = useNavigate();
+    const [error, setError] = useState(false)
 
     const seleciona = (item) => {
         setSelecionado(true);
@@ -51,14 +51,17 @@ const Adicionar = ({ open, setOpen }) => {
 
     const atualizaSaldo = async () => {
         try{
-            // if (choice.close * quant > )
-
-            const update = await axios.post('https://backend-investtrack.onrender.com/transaction/', {
-                "user": Number(localStorage.getItem('userId')),
-                "valor": (choice.close * quant),
-                "tipo":"subtrair"
-            })
-            console.log(update.data);
+            if (choice.close * quant > localStorage.getItem('saldo')){
+                setError(true)
+                alert("Saldo insuficiente")
+            } else{
+                const update = await axios.post('https://backend-investtrack.onrender.com/transaction/', {
+                    "user": Number(localStorage.getItem('userId')),
+                    "valor": (choice.close * quant),
+                    "tipo":"subtrair"
+                })
+                console.log(update.data);
+            }
         } catch(error){
             console.log(error.response?.data);
             console.log(error.response?.status);
@@ -133,6 +136,9 @@ const Adicionar = ({ open, setOpen }) => {
                     )}
                     <button className="mt-6 p-3 px-6 border border-[#0a4d3c29] backdrop-blur-2xl bg-[#64d8a42e] rounded-xl cursor-pointer text-[#0A4D3C] text-xs">Adicionar</button>
                 </form>
+                {error && (
+                    <p>Saldo Insuficientes</p>
+                )}
             </div>     
         </div>
     )

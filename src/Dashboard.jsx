@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlassChart, faArrowRightFromBracket, faPlus, faWallet, faArrowUp, faArrowTrendUp, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlassChart, faArrowRightFromBracket, faPlus, faWallet, faArrowUp, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import Adicionar from "./Adicionar";
 import axios from "axios";
+import Depositar from "./Depositar";
 
 const Dashboard = () => {
     const idUsuario = localStorage.getItem('userId');
@@ -11,6 +12,7 @@ const Dashboard = () => {
     const nomeUsuario = localStorage.getItem('userNome');
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [openAd, setOpenAd] = useState(false);
     const [carteira, setCarteira] = useState([])
     const [investimentos, setInvestimentos] = useState([]);
 
@@ -31,6 +33,7 @@ const Dashboard = () => {
             } 
             )
             setInvestimentos(response.data);
+            localStorage.setItem('saldo', response.data[0].saldo);
         } catch(error){
             console.log(error);
         }
@@ -44,6 +47,7 @@ const Dashboard = () => {
             )
             console.log(response.data);
             setCarteira(response.data);
+            localStorage.setItem('saldo', response.data.saldo);
         } catch(error){
             console.log(error);
         }
@@ -71,8 +75,9 @@ const Dashboard = () => {
     const iniciais = nomeUsuario.slice(0, 2);
 
     return(
-        <div className="min-h-screen bg-[#F7F9FC]">
+        <div className="min-h-screen bg-[#F7F9FC] pb-12">
             <Adicionar open={open} setOpen={setOpen} />
+            <Depositar open={openAd} setOpen={setOpenAd} />
             <header className="w-full flex flex-row justify-between py-4 px-16 z-10 fixed bg-white shadow-md shadow-[#e6e6e6a6]">
                 {/* LOGO */}
                 <div className="flex flex-row gap-2 items-center">
@@ -110,53 +115,35 @@ const Dashboard = () => {
                 </section>
 
                 <section className="flex flex-row justify-between gap-4">
-                    <div className="flex flex-col w-[33%] bg-white p-6 rounded-3xl items-baseline gap-2 shadow-md shadow-[#e6e6e680] border border-gray-200">
+                    <div className="flex flex-col  w-[50%] bg-white justify-center px-6 rounded-3xl items-baseline gap-2 shadow-md shadow-[#e6e6e680] border border-gray-200">
                         <div className="flex flex-row justify-between w-full items-center">
                             <div className="">
                                 <p className="text-xs text-gray-500">Total Investido</p>
-                                <p className="text-2xl font-semibold text-[#2C3E50]">R$ {carteira.investido}</p>
+                                <p className="text-2xl font-semibold text-[#2C3E50] py-2">R$ {carteira.investido}</p>
                             </div>
                             <FontAwesomeIcon className="text-2xl p-3 text-[#0a4d3cc0] bg-[#E6EDEB] rounded-2xl border border-gray-200" icon={faWallet} />
                         </div>
-                        <div className="flex flex-row gap-1 items-center text-sm text-[#32AE60] bg-[#F0FDF4] p-1 px-3 rounded-full border border-[#32ae5f1b]">
-                            <FontAwesomeIcon className="text-xs" icon={faArrowUp} />
-                            <p className="text-xs font-medium">12% este mês</p>
-                        </div>
                     </div>
 
-                    <div className="flex flex-col w-[33%] bg-white p-6 rounded-3xl items-baseline gap-2 shadow-md shadow-[#e6e6e680] border border-gray-200">
-                        <div className="flex flex-row justify-between w-full items-center">
-                            <div className="">
-                                <p className="text-xs text-gray-500">Rendimento Total</p>
-                                <p className="text-2xl font-semibold text-[#2C3E50]">R$ 12.331,12</p>
-                            </div>
-                            <FontAwesomeIcon className="text-2xl p-3 text-[#0a4d3cc0] bg-[#E6EDEB] rounded-2xl border border-gray-200" icon={faArrowTrendUp} />
-                        </div>
-                        <div className="flex flex-row gap-1 items-center text-sm text-[#32AE60] bg-[#F0FDF4] p-1 px-3 rounded-full border border-[#32ae5f1b]">
-                            <FontAwesomeIcon icon={faArrowTrendUp} />
-                            <p className="text-xs font-medium">+40%</p>
-                        </div>
-                    </div>
 
-                    <div className="flex flex-col w-[33%] bg-white p-6 rounded-3xl items-baseline gap-1 shadow-md shadow-[#e6e6e680] border border-gray-200">
+                    <div className="flex flex-col w-[50%] bg-white p-6 rounded-3xl items-baseline gap-1 shadow-md shadow-[#e6e6e680] border border-gray-200">
                         <div className="flex flex-row justify-between w-full items-center">
                             <div className="">
                                 <p className="text-xs text-gray-500">Saldo Atual</p>
-                                <p className="text-2xl font-semibold text-[#2C3E50]">R$ {carteira.saldo}</p>
+                                <div className="flex flex-rowc gap-3 items-center py-2">
+                                    <p className="text-2xl font-semibold text-[#2C3E50]">R$ {carteira.saldo}</p>
+                                    <FontAwesomeIcon onClick={() => setOpenAd(true)} className="text-sm bg-[#F3F6F5] text-[#2c3e50aa] p-2 rounded-lg cursor-pointer" icon={faPlus} />
+                                </div>
                             </div>
                             <FontAwesomeIcon className="text-2xl p-3 text-[#2563EB] bg-[#EFF6FF] rounded-2xl border border-gray-200" icon={faDollarSign} />
                         </div>
-                        <p className="text-sm text-gray-400">Disponível para investimento</p>
                     </div>
                 </section>
             </div>
 
             <section className="mx-18 mt-10 flex flex-row justify-between gap-4">
-                <div className="w-[35%] bg-white p-6 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
-                    <h1 className="text-xl font-semibold text-[#2C3E50]">Alocação</h1>
-                </div>
 
-                <div className="w-[75%] bg-white p-8 pb-2 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
+                <div className="w-full bg-white p-8 pb-2 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
                     <h1 className="text-lg font-semibold text-[#2C3E50] mb-4">Investimentos</h1>
                     <div className="flex flex-col ">
                         <div className="flex flex-row text-sm capitalize mb-4 gap-4">

@@ -14,7 +14,6 @@ const Cadastro = () => {
     const [errormsg, setErrormsg] = useState(false);
     const [load, setLoad] = useState(false);
 
-
     const [nomeCad, setnomeCad] = useState('');
     const [emailCad, setEmailCad] = useState('');
     const [senhaCad, setSenhaCad] = useState('');
