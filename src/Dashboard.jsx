@@ -16,6 +16,18 @@ const Dashboard = () => {
     const [carteira, setCarteira] = useState([])
     const [investimentos, setInvestimentos] = useState([]);
 
+    const fetchSaldo = async (price) => {
+        try{
+            await axios.post('https://backend-investtrack.onrender.com/transaction/', {
+                "user": Number(idUsuario),
+                "valor": price,
+                "tipo":"adicionar"
+            })
+            }catch(error){
+                console.log(error);
+            }
+    }
+
     const formatarData = (dataIso) => {
         if (!dataIso) return "";
         const dataObj = new Date(dataIso + "T00:00:00");
@@ -25,6 +37,20 @@ const Dashboard = () => {
         mesAbreviado = mesAbreviado.replace('.', '');
         return `${dia}, ${mesAbreviado}. ${ano}`;
     };
+
+    const deleteInvest = async (stock, total) => {
+        try{ const response = await axios.delete('https://backend-investtrack.onrender.com/delete_invest/', {
+            data: {
+            "user": Number(idUsuario),
+            "stock": stock
+        }})
+        console.log(response.data);
+        await fetchSaldo(total)
+        window.location.reload();
+        } catch (error){
+            console.log(error);
+        }       
+    }
 
     const fetchInvestimentos = async () => {
         try{
@@ -164,7 +190,7 @@ const Dashboard = () => {
                                     </div>
                                     <div className="flex ml-0 w-[19%] justify-start items-center"><h1 className="p-2 bg-[#f3f6f5] rounded-lg" >R$ {item.total}</h1></div>           
                                     <div className="flex w-[19%] justify-start -mr-16 items-center italic"><h1>{formatarData(item.data)}</h1></div>
-                                    <FontAwesomeIcon className="w-[6%] bg-red-50 text-red-400 p-3 text-md rounded-lg cursor-pointer" icon={faTrash} />
+                                    <FontAwesomeIcon onClick={() => deleteInvest(item.ticker, item.total)} className="w-[6%] bg-red-50 text-red-400 p-3 text-md rounded-lg cursor-pointer" icon={faTrash} />
                                 </div>
                         )
                         )}
