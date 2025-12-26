@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlassChart, faArrowRightFromBracket, faPlus, faWallet, faArrowUp, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlassChart, faArrowRightFromBracket, faPlus, faWallet, faTrash, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import Adicionar from "./Adicionar";
 import axios from "axios";
 import Depositar from "./Depositar";
@@ -159,11 +159,12 @@ const Dashboard = () => {
                                         <img className="w-8 rounded-lg" src={item.img}></img>
                                         <h1>{item.stock}</h1>
                                     </div>
-                                    <div className="flex w-[21%] justify-start items-center">
+                                    <div className="flex w-[19%] justify-start items-center">
                                         <h1 className="">R${item.price} <span className="text-[10px] text-gray-600 font-light">/  {item.quantidade}</span></h1>
                                     </div>
-                                    <div className="flex ml-0 w-[21%] justify-start items-center"><h1 className="p-2 bg-[#f3f6f5] rounded-lg" >R$ {item.total}</h1></div>           
-                                    <div className="flex w-[21%] justify-start items-center italic"><h1>{formatarData(item.data)}</h1></div>
+                                    <div className="flex ml-0 w-[19%] justify-start items-center"><h1 className="p-2 bg-[#f3f6f5] rounded-lg" >R$ {item.total}</h1></div>           
+                                    <div className="flex w-[19%] justify-start -mr-16 items-center italic"><h1>{formatarData(item.data)}</h1></div>
+                                    <FontAwesomeIcon className="w-[6%] bg-red-50 text-red-400 p-3 text-md rounded-lg cursor-pointer" icon={faTrash} />
                                 </div>
                         )
                         )}
