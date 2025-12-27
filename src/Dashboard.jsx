@@ -10,6 +10,7 @@ const Dashboard = () => {
     const idUsuario = localStorage.getItem('userId');
     const emailUsuario = localStorage.getItem('userEmail');
     const nomeUsuario = localStorage.getItem('userNome');
+    const idCarteira = localStorage.getItem('idCarteira');
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [openAd, setOpenAd] = useState(false);
@@ -24,6 +25,18 @@ const Dashboard = () => {
                 "tipo":"adicionar"
             })
             }catch(error){
+                console.log(error);
+            }
+    }
+
+    const AtualizaInv = async (price) => {
+        try{
+            await axios.post('https://backend-investtrack.onrender.com/diminui_invest/', {
+                "id": Number(idUsuario),
+                "valor": price,
+                "tipo":"diminui"
+            })
+        }catch(error){
                 console.log(error);
             }
     }
@@ -46,6 +59,7 @@ const Dashboard = () => {
         }})
         console.log(response.data);
         await fetchSaldo(total)
+        await AtualizaInv(total)
         window.location.reload();
         } catch (error){
             console.log(error);
