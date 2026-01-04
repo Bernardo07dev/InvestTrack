@@ -50,9 +50,9 @@ const Cadastro = () => {
         try{
             const response = await axios.post('https://backend-investtrack.onrender.com/create/', 
                 {
-                    "nome": nomeCad,
+                    "username": nomeCad,
                     "email": emailCad,
-                    "senha": senhaCad
+                    "password": senhaCad
                 }
             )
             console.log(response.data);
