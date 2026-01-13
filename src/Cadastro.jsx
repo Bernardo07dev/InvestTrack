@@ -58,7 +58,7 @@ const Cadastro = () => {
             console.log(response.data);
             localStorage.setItem('userId', response.data.id);
             localStorage.setItem('userEmail', response.data.email);
-            localStorage.setItem('userNome', response.data.nome);
+            localStorage.setItem('userNome', response.data.username);
             navigate('/home');
         } catch (error) {
             console.error("Erro no cadastro:", error);        
@@ -75,14 +75,14 @@ const Cadastro = () => {
                     <h1 className="text-lg font-bold tracking-tighter">Invest Track</h1>
                 </div>
 
-                <div className="flex flex-row gap-1 text-sm items-center tracking-tight">
+                <div className="sm:flex hidden flex-row gap-1 text-sm items-center tracking-tight">
                     <p>Ajuda? </p>
                     <p className="font-semibold">Fale como Suporte</p>
                 </div>
             </header>
 
-            <main className="w-[80%] bg-white mb-12 shadow-2xl shadow-[#e6e6e6] border-2 border-gray-100 rounded-4xl flex flex-row">
-                <div className="w-[55%] flex flex-col py-6 px-8">
+            <main className="lg:w-[80%] w-[90%] bg-white mb-12 shadow-2xl shadow-[#e6e6e6] border-2 border-gray-100 rounded-4xl flex lg:flex-row">
+                <div className="w-full lg:w-[55%] flex flex-col py-6 px-8">
                     <div className={`flex flex-row gap-4 bg-[#F3F4F6] p-2 text-sm font-medium justify-between rounded-xl mb-6`}>
                         <div onClick={() => setInput("login")}  className={`${input === "login" ? "bg-white" : "bg-[#F3F4F6]"} transition-all duration-300 ease-in-out cursor-pointer rounded-xl p-2 text-center w-[50%]`}>
                             <p>Login</p>
@@ -94,7 +94,7 @@ const Cadastro = () => {
                     </div>
 
                     { input === "login" ? (
-                        <div className="p-8 py-4 transition-all duration-300 ease-in-out">
+                        <div className="p-8 lg:py-4 py-12 pb-16 transition-all duration-300 ease-in-out">
                             <h1 className="text-3xl font-semibold">Bem-vindo de Volta</h1>
                             <p className="text-sm text-gray-500">Coloque seus dados para acessar sua conta</p>
 
@@ -132,7 +132,7 @@ const Cadastro = () => {
                             </div>
                         </div>
                         ) : input === "cadastro" && (
-                        <div className="p-8 py-4 transition-all duration-300 ease-in-out">
+                        <div className="p-8 lg:py-4 py-12 pb-16 transition-all duration-300 ease-in-out">
                             <h1 className="text-2xl font-semibold">Faça seu cadastro</h1>
                             <p className="text-sm mt-1 text-gray-600">Coloque seus dados para criar sua conta</p>
 
@@ -163,7 +163,7 @@ const Cadastro = () => {
 
                 </div>
 
-                <div className="w-[45%] bg-linear-to-br shadow-xl p-12 from-[#0A4D3C] to-[#052e24] rounded-4xl text-white flex flex-col justify-between">
+                <div className="w-full lg:w-[45%] bg-linear-to-br shadow-xl p-10 lg:p-12 from-[#0A4D3C] to-[#052e24] rounded-4xl text-white hidden lg:flex flex-col 2xl:justify-between">
                     <div className="w-fit rounded-xl border border-white/20 p-4 backdrop-blur-2xl bg-white/3 flex flex-row gap-2 inset-shadow-lg items-center shadow-2xl shadow-black/35">
                         <FontAwesomeIcon className="bg-green-400 p-3 rounded-lg" icon={faChartColumn}></FontAwesomeIcon>
                         <div>
@@ -175,9 +175,9 @@ const Cadastro = () => {
                         </div>
                     </div>
 
-                    <h1 className="mt-8 text-4xl text-white/90 mb-3 font-semibold tracking-tighter text-shadow-lg">Seu dinheiro sob controle<br/> sem complicação </h1>
-                    <p className=" text-white/50 font-light mr-12 mb-10 text-shadow-lg">Faça parte da nossa comunidade e seja mais um a ter controle sobre gastos, investimentos e renda.</p>
-                    <div className="rounded-xl border border-white/20 py-8 px-10 backdrop-blur-4xl bg-white/3 flex flex-col inset-shadow-sm shadow-2xl shadow-black/45">
+                    <h1 className="lg:mt-8 mt-4 text-3xl lg:text-4xl text-white/90 mb-3 font-semibold tracking-tighter text-shadow-lg">Seu dinheiro sob controle<br/> sem complicação </h1>
+                    <p className=" text-white/50 font-light mr-12 mb-10 text-shadow-lg hidden lg:flex">Faça parte da nossa comunidade e seja mais um a ter controle sobre gastos, investimentos e renda.</p>
+                    <div className="rounded-xl border border-white/20 py-8 px-10 backdrop-blur-4xl bg-white/3 hidden 2xl:flex flex-col inset-shadow-sm shadow-2xl shadow-black/45">
                         <p className="text-white/60 text-sm font-light mb-1">Balanço Total</p>
                         <div className="flex flex-row justify-baseline items-center gap-2">
                             <h1 className="text-3xl font-semibold text-white/70 text-shadow-[90px]">R$12.550,45</h1>
