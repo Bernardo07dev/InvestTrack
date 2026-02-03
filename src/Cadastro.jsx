@@ -47,6 +47,7 @@ const Cadastro = () => {
 
     const CreateUser = async (e) => {
         e.preventDefault();
+        setLoad(true);
         try{
             const response = await axios.post('https://backend-investtrack.onrender.com/create/', 
                 {

@@ -80,12 +80,17 @@ const Dashboard = () => {
     }
 
     const getInvestimentos = async () => {
+        if (!idUsuario) {
+            console.error("idUsuario está vindo como:", idUsuario);
+            return;
+        }
+
         try{
             const response = await axios.post('https://backend-investtrack.onrender.com/carteira/', {
                 "user": Number(idUsuario)
             } 
             )
-            console.log(response.data);
+            console.log(response.data, "Pegando carteira");
             setCarteira(response.data);
             localStorage.setItem('saldo', response.data.saldo);
         } catch(error){
@@ -159,7 +164,7 @@ const Dashboard = () => {
                         <div className="flex flex-row justify-between w-full items-center">
                             <div className="">
                                 <p className="text-xs text-gray-500">Total Investido</p>
-                                <p className="text-2xl font-semibold text-[#2C3E50] py-2">R$ {carteira.investido}</p>
+                                <p className="text-2xl font-semibold text-[#2C3E50] py-2">R$ {carteira.investido || "0.00"}</p>
                             </div>
                             <FontAwesomeIcon className="text-2xl p-3 text-[#0a4d3cc0] bg-[#E6EDEB] rounded-2xl border border-gray-200" icon={faWallet} />
                         </div>
@@ -171,7 +176,7 @@ const Dashboard = () => {
                             <div className="">
                                 <p className="text-xs text-gray-500">Saldo Atual</p>
                                 <div className="flex flex-rowc gap-3 items-center py-2">
-                                    <p className="text-2xl font-semibold text-[#2C3E50]">R$ {carteira.saldo}</p>
+                                    <p className="text-2xl font-semibold text-[#2C3E50]">R$ {carteira.saldo || "0.00"}</p>
                                     <FontAwesomeIcon onClick={() => setOpenAd(true)} className="text-sm bg-[#F3F6F5] text-[#2c3e50aa] p-2 rounded-lg cursor-pointer" icon={faPlus} />
                                 </div>
                             </div>
