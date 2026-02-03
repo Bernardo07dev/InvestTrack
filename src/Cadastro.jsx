@@ -78,7 +78,7 @@ const Cadastro = () => {
     return(
         <div className="bg-[#F7F9FC] min-h-screen flex flex-col items-center">
             {load && <Loading/>}
-            <header className="w-full flex flex-row justify-between py-8 px-16">
+            <header className="w-full flex flex-row justify-between py-8 px-8 sm:px-16">
                 {/* LOGO */}
                 <div className="flex flex-row gap-2 items-center">
                     <FontAwesomeIcon className="bg-[#0A4D3C] text-white text-xl p-2 rounded-xl" icon={faMagnifyingGlassChart} />
@@ -92,7 +92,7 @@ const Cadastro = () => {
             </header>
 
             <main className="lg:w-[80%] w-[90%] bg-white mb-12 shadow-2xl shadow-[#e6e6e6] border-2 border-gray-100 rounded-4xl flex lg:flex-row">
-                <div className="w-full lg:w-[55%] flex flex-col py-6 px-8">
+                <div className="w-full lg:w-[55%] flex flex-col sm:py-6 sm:px-8 p-4">
                     <div className={`flex flex-row gap-4 bg-[#F3F4F6] p-2 text-sm font-medium justify-between rounded-xl mb-6`}>
                         <div onClick={() => setInput("login")}  className={`${input === "login" ? "bg-white" : "bg-[#F3F4F6]"} transition-all duration-300 ease-in-out cursor-pointer rounded-xl p-2 text-center w-[50%]`}>
                             <p>Login</p>
@@ -104,7 +104,7 @@ const Cadastro = () => {
                     </div>
 
                     { input === "login" ? (
-                        <div className="p-8 lg:py-4 py-12 pb-16 transition-all duration-300 ease-in-out">
+                        <div className="sm:p-8 p-6 lg:py-4 sm:py-12 pb-16 transition-all duration-300 ease-in-out">
                             <h1 className="text-3xl font-semibold">Bem-vindo de Volta</h1>
                             <p className="text-sm text-gray-500">Coloque seus dados para acessar sua conta</p>
 
@@ -142,7 +142,7 @@ const Cadastro = () => {
                             </div>
                         </div>
                         ) : input === "cadastro" && (
-                        <div className="p-8 lg:py-4 py-12 pb-16 transition-all duration-300 ease-in-out">
+                        <div className="sm:p-8 p-6 sm:py-12 lg:py-4 pb-16 transition-all duration-300 ease-in-out">
                             <h1 className="text-2xl font-semibold">Faça seu cadastro</h1>
                             <p className="text-sm mt-1 text-gray-600">Coloque seus dados para criar sua conta</p>
 
