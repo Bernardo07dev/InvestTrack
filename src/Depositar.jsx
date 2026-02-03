@@ -24,7 +24,7 @@ const Depositar = ({ open, setOpen }) => {
 
     return(
         <div className={`h-screen w-full absolute z-20 bg-white/20 backdrop-blur-xs flex items-center justify-center ${open ? "flex" : "hidden"}`}>
-            <div className="w-[40%] bg-white p-12 pt-8 rounded-3xl shadow-md shadow-[#e6e6e680] border border-gray-200">
+            <div className="sm:w-[40%] w-full sm:mx-0 mx-8 bg-white p-12 pt-8 rounded-3xl shadow-md shadow-[#e6e6e680] border border-gray-200">
                 <div className="w-full flex justify-end cursor-pointer">
                     <FontAwesomeIcon onClick={() => setOpen(false)} className="-mr-2 text-gray-500 text-sm" icon={faX}/>
                 </div>

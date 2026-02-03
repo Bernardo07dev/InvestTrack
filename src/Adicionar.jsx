@@ -21,9 +21,25 @@ const Adicionar = ({ open, setOpen }) => {
         console.log(item);
     }
 
-    const sendInvest = (e) => {
-        createInvestmento(e)
-        atualizaSaldo();
+    const sendInvest = async (e) => {
+        e.preventDefault();
+        const sucessoNoSaldo = await atualizaSaldo();
+
+        if (sucessoNoSaldo){
+            createInvestmento(e)
+        } else{
+            setError(true)
+            setSelecionado(false)
+            return;
+        }
+    }
+
+    const CloseAd = () => {
+        setOpen(false)
+        setError(false)
+        setQuery('')
+        setResults([])
+        setQuant(0)
     }
 
     const createInvestmento = async (e) => {
@@ -51,9 +67,9 @@ const Adicionar = ({ open, setOpen }) => {
 
     const atualizaSaldo = async () => {
         try{
-            if (choice.close * quant > localStorage.getItem('saldo')){
+            if (choice.close * quant > Number(localStorage.getItem('saldo'))){
                 setError(true)
-                alert("Saldo insuficiente")
+                return false;
             } else{
                 const update = await axios.post('https://backend-investtrack.onrender.com/transaction/', {
                     "user": Number(localStorage.getItem('userId')),
@@ -61,6 +77,7 @@ const Adicionar = ({ open, setOpen }) => {
                     "tipo":"subtrair"
                 })
                 console.log(update.data);
+                return true;
             }
         } catch(error){
             console.log(error.response?.data);
@@ -100,9 +117,9 @@ const Adicionar = ({ open, setOpen }) => {
 
     return(
         <div className={`h-screen w-full absolute z-20 bg-white/20 backdrop-blur-xs flex items-center justify-center`}>
-            <div className="w-[40%] bg-white p-12 pt-8 rounded-3xl shadow-md shadow-[#e6e6e680] border border-gray-200">
+            <div className="sm:w-[40%] w-full sm:mx-0 mx-8 bg-white p-12 pt-8 rounded-3xl shadow-md shadow-[#e6e6e680] border border-gray-200">
                 <div className="w-full flex justify-end cursor-pointer">
-                    <FontAwesomeIcon onClick={() => setOpen(false)} className="-mr-2 text-gray-500 text-sm" icon={faX}/>
+                    <FontAwesomeIcon onClick={() => CloseAd()} className="-mr-2 text-gray-500 text-sm" icon={faX}/>
                 </div>
 
                 <h1 className="text-xl font-semibold text-[#2C3E50] mb-4">Adicionar Investimento</h1>
@@ -134,11 +151,13 @@ const Adicionar = ({ open, setOpen }) => {
                     {quant !== 0 && quant !== "" && (
                         <p className="pt-4 px-2 text-xs text-gray-600">Valor Investido: <span className="font-medium text-gray-600 underline text-sm">R$ {(choice.close * quant).toFixed(2)}</span></p>
                     )}
+                    
                     <button className="mt-6 p-3 px-6 border border-[#0a4d3c29] backdrop-blur-2xl bg-[#64d8a42e] rounded-xl cursor-pointer text-[#0A4D3C] text-xs">Adicionar</button>
+                    
+                    {error && (
+                        <p className="text-xs mt-4 ml-1 text-red-600 ">Saldo Insuficiente</p>
+                    )}
                 </form>
-                {error && (
-                    <p>Saldo Insuficientes</p>
-                )}
             </div>     
         </div>
     )

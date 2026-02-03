@@ -123,44 +123,44 @@ const Dashboard = () => {
         <div className="min-h-screen bg-[#F7F9FC] pb-12">
             <Adicionar open={open} setOpen={setOpen} />
             <Depositar open={openAd} setOpen={setOpenAd} />
-            <header className="w-full flex flex-row justify-between py-4 px-16 z-10 fixed bg-white shadow-md shadow-[#e6e6e6a6]">
+            <header className="w-full flex flex-row justify-between py-4 px-8 sm:px-16 z-10 fixed bg-white shadow-md shadow-[#e6e6e6a6]">
                 {/* LOGO */}
                 <div className="flex flex-row gap-2 items-center">
                     <FontAwesomeIcon className="bg-[#0A4D3C] text-white text-xl p-2 rounded-xl" icon={faMagnifyingGlassChart} />
-                    <h1 className="text-lg font-bold tracking-tighter">Invest Track</h1>
+                    <h1 className="md:flex hidden text-lg font-bold tracking-tighter">Invest Track</h1>
                 </div>
 
                 <div className="flex flex-row gap-3 text-sm items-center justify-center tracking-tight">
-                    <div className="flex flex-col items-end">
+                    <div className=" flex-col items-end hidden sm:flex">
                         <p className="font-medium text-gray-700 -mb-0.5">{nomeUsuario}</p>
                         <p className="font-light text-xs text-gray-500">{emailUsuario}</p>
                     </div>
                     <p className="text-lg uppercase font-semibold bg-[#EDFAF9] px-3 py-2 text-[#0A4D3C] rounded-full border border-[#CFF1EF]">{iniciais}</p>
 
-                    <div className="px-[0.7px] mx-2 h-10 bg-gray-300"></div>
+                    <div className="px-[0.7px] mx-2 h-10 bg-gray-300 md:flex hidden"></div>
 
-                    <div onClick={() => Logout()} className="cursor-pointer flex flex-row gap-1 items-center">
+                    <div onClick={() => Logout()} className="cursor-pointer md:flex hidden flex-row gap-1 items-center">
                         <FontAwesomeIcon className="text-xl text-gray-400" icon={faArrowRightFromBracket} />
                         <p className="text-gray-400 font-medium">Sair</p>
                     </div>
                 </div>
             </header>
 
-            <div className="w-full px-18 z-10 pt-28">
-                <section className="w-full flex flex-row justify-between mb-6">
+            <div className="w-full px-8 sm:px-18 z-10 pt-28">
+                <section className="w-full flex flex-col sm:flex-row justify-between mb-6">
                     <div>
                         <h1 className="text-2xl font-semibold text-[#2C3E50]">Dashboard</h1>
                         <p className="text-xs text-gray-500">Visão geral da sua carteira de investimentos</p>
                     </div>
 
-                    <div onClick={() => setOpen(true)} className="border border-[#0a4d3c71] bg-[#64d8a424] cursor-pointer text-[#0A4D3C] h-11 text-xs flex flex-row justify-center items-center px-6 gap-1 rounded-xl backdrop-blur-2xl">
+                    <div onClick={() => setOpen(true)} className="border border-[#0a4d3c71] bg-[#64d8a424] cursor-pointer text-[#0A4D3C] h-11 text-xs flex flex-row justify-center items-center sm:mt-0 mt-6 px-6 gap-1 rounded-xl backdrop-blur-2xl">
                         <FontAwesomeIcon icon={faPlus} />
                         <p className="text-xs font-medium">Adicionar Investimento</p>
                     </div>
                 </section>
 
-                <section className="flex flex-row justify-between gap-4">
-                    <div className="flex flex-col  w-[50%] bg-white justify-center px-6 rounded-3xl items-baseline gap-2 shadow-md shadow-[#e6e6e680] border border-gray-200">
+                <section className="flex flex-col sm:flex-row justify-between gap-4">
+                    <div className="flex flex-col w-full sm:w-[50%] bg-white justify-center p-6 rounded-3xl items-baseline gap-2 shadow-md shadow-[#e6e6e680] border border-gray-200">
                         <div className="flex flex-row justify-between w-full items-center">
                             <div className="">
                                 <p className="text-xs text-gray-500">Total Investido</p>
@@ -171,7 +171,7 @@ const Dashboard = () => {
                     </div>
 
 
-                    <div className="flex flex-col w-[50%] bg-white p-6 rounded-3xl items-baseline gap-1 shadow-md shadow-[#e6e6e680] border border-gray-200">
+                    <div className="flex flex-col w-full sm:w-[50%] bg-white p-6 rounded-3xl items-baseline gap-1 shadow-md shadow-[#e6e6e680] border border-gray-200">
                         <div className="flex flex-row justify-between w-full items-center">
                             <div className="">
                                 <p className="text-xs text-gray-500">Saldo Atual</p>
@@ -186,21 +186,21 @@ const Dashboard = () => {
                 </section>
             </div>
 
-            <section className="mx-18 mt-10 flex flex-row justify-between gap-4">
+            <section className="sm:mx-18 mx-8 mt-10 flex flex-row justify-between gap-4">
 
                 <div className="w-full bg-white p-8 pb-2 rounded-3xl gap-2 shadow-md shadow-[#e6e6e680]">
                     <h1 className="text-lg font-semibold text-[#2C3E50] mb-4">Investimentos</h1>
                     <div className="flex flex-col ">
                         <div className="flex flex-row text-sm capitalize mb-4 gap-4">
-                            <div className="flex w-[35%] "><h1>Ativo</h1></div>
+                            <div className="flex w-[30%] sm:w-[35%] "><h1>Ativo</h1></div>
                             <div className="flex w-[21%]"><h1>Preço <span className="text-[10px] text-gray-500">/ Cotas</span></h1></div>
                             <div className="flex w-[21%]"><h1>Valor</h1></div>           
-                            <div className="flex w-[21%]"><h1>Data</h1></div>
+                            <div className="sm:flex hidden w-[21%]"><h1>Data</h1></div>
                         </div>
                         {investimentos.map(
                             (item, index) => (
                                 <div key={index} className="flex flex-row capitalize text-xs gap-4 mb-8">
-                                    <div className="flex justify-start items-center w-[35%] text-gray-600 gap-2">
+                                    <div className="flex justify-start items-center w-[30%] sm:w-[35%] text-gray-600 gap-2">
                                         <img className="w-8 rounded-lg" src={item.img}></img>
                                         <h1>{item.stock}</h1>
                                     </div>
@@ -208,7 +208,7 @@ const Dashboard = () => {
                                         <h1 className="">R${item.price} <span className="text-[10px] text-gray-600 font-light">/  {item.quantidade}</span></h1>
                                     </div>
                                     <div className="flex ml-0 w-[19%] justify-start items-center"><h1 className="p-2 bg-[#f3f6f5] rounded-lg" >R$ {item.total}</h1></div>           
-                                    <div className="flex w-[19%] justify-start -mr-16 items-center italic"><h1>{formatarData(item.data)}</h1></div>
+                                    <div className="sm:flex hidden w-[19%] justify-start -mr-16 items-center italic"><h1>{formatarData(item.data)}</h1></div>
                                     <FontAwesomeIcon onClick={() => deleteInvest(item.ticker, item.total)} className="w-[6%] bg-red-50 text-red-400 p-3 text-md rounded-lg cursor-pointer" icon={faTrash} />
                                 </div>
                         )
